@@ -1,7 +1,7 @@
 import React from 'react'
 import User from '../img/marker-icon.png'
 import Bus from '../img/bus-icon.png'
-//require('dotenv').config({path:__dirname+'../env'})
+require('dotenv').config()
 
 
 
