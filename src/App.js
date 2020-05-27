@@ -3,6 +3,7 @@ import Header from './Header/Header'
 import MapDisplay from './Map/Map'
 import TripControls from './TripControls/TripControls'
 import RouteDisplay from './RouteDisplay/RouteDisplay'
+import Legend from './Legend/Legend'
 import './App.css';
 
 
@@ -119,16 +120,17 @@ class App extends React.Component {
       <>
       
       <Header/>
-      <MapDisplay 
-      lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom}
-      boundary={this.state.boundary} outerBoundary={this.state.outerBoundary}
-      busList={this.state.buslist} busNameList={this.state.busNameList} />
       <TripControls 
       setLat={this.setLat} setLong={this.setLong}
       createBoundary={this.createBoundary} boundary={this.state.boundary} 
       outerBoundary={this.state.outerBoundary} busList={this.updateBusList}
       userLat={this.state.lat} userLong={this.state.lng} loadingSwitch={this.loadingMessage}
       findBusButton={this.findBusButton}/>
+      <MapDisplay 
+      lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom}
+      boundary={this.state.boundary} outerBoundary={this.state.outerBoundary}
+      busList={this.state.buslist} busNameList={this.state.busNameList} />
+      <Legend/>
       <RouteDisplay busList={this.state.buslist} busNameList={this.state.busNameList}
       bool={this.state.loading} buttonTouched={this.state.buttonTouched}/>
       </>

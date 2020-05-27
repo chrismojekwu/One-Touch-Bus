@@ -1,6 +1,4 @@
 import React from 'react'
-import User from '../img/marker-icon.png'
-import Bus from '../img/bus-icon.png'
 require('dotenv').config()
 
 
@@ -296,13 +294,6 @@ class TripControls extends React.Component {
                   <span className="tooltiptext">Please click Find My Bus to list bustimes, route and destination can also be viewed by clicking on the bus icons on the map.</span>
                </div>
 
-               <section className="legend">
-                 <img className="legend-icon" src={User} alt="Icon for the users positon."/>Your Current Position
-                 <img className="legend-icon" src={Bus} alt="Icon for any nearby buses."/>Bus (Click for Route Name and Destination)
-               </section>
-
-              
-             
             </section>
         )
     }

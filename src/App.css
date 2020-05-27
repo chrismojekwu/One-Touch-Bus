@@ -4,18 +4,18 @@ body {
 }
 .header {
   font-family: 'Noticia Text', serif;
-  font-size: 26px;
+  font-size: 16px;
   margin: 0 auto;
   padding-top: 1px;
   padding-bottom: 1px;
   background-color: rgb(27, 18, 53);
   color: white;
   text-align: center;
-  height: 150px;
+  height: 100px;
 }
 .title2{
   position: relative;
-  bottom: 40px;
+  bottom: 30px;
 }
 .map {
   margin: auto;
@@ -53,6 +53,7 @@ body {
   width: fit-content;
   padding: 20px;
   box-shadow: 0 4px 8px 0 rgba(28, 15, 53, 0.603);
+  text-align: center;
 }
 .legend-icon {
    height: 40px;
@@ -136,6 +137,11 @@ body {
   .tooltip .tooltiptext {
     width: 300px;
   }
+  .header {
+    font-size: 26px;
+    height: 150px;
+  }
+  
 }
 
 @media screen and (min-width:1250px){
@@ -149,7 +155,7 @@ body {
    display: inline-block;
    margin: unset;
    position: relative;
-   bottom: 557px;  
+   bottom: 0px;  
    float: right; 
  }
  .display {
@@ -158,11 +164,7 @@ body {
   margin-left: 5px;
   position: relative;
   float: right;
-  bottom: 370px; 
-  left: 349px;
- }
- .tooltip {
-   left:170px;
+  bottom: 300px; 
  }
  .tooltip .tooltiptext{
   width: 400px;
