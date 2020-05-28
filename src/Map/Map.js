@@ -42,7 +42,7 @@ class MapDisplay extends React.Component {
         return (
             <div className="map">
                 
-                <Map center={position} zoom={this.props.zoom} style={{ width: '100%', height: '500px'}}>
+                <Map center={position} zoom={this.props.zoom} style={{ width: '100%', height: '500px', borderRadius: '10px'}}>
                   <TileLayer 
                       attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

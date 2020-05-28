@@ -1,13 +1,9 @@
 import React from 'react'
+import logo from '../img/OTB.png'
 
 export default function Header(){
     return (
-        <div className="header">
-        <h1>
-            ONE TOUCH BUS
-        </h1>
-            <p className="title2">Chicago</p>
-        
-        </div>
+        <img className="logo" src={logo}/>
     )
 }
+
