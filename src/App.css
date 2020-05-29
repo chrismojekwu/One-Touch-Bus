@@ -34,6 +34,9 @@ h1 {
   margin-top: 20px;
 }
 #bus-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   font-size: 16px;
   line-height: 35px;
   width: 150px;
