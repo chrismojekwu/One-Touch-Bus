@@ -25,6 +25,7 @@ class TripControls extends React.Component {
     
       };
 
+    /** cant afford to pay for geocoding service :( **/ 
     reverseGeocode = () => {
       
      const boundary = this.props.boundary;
@@ -186,7 +187,6 @@ class TripControls extends React.Component {
                 return res.json()})
               .then(data => {
                 boundaryStreets.push(data.address)
-                //console.log(boundaryStreets)
                 this.filterStreets(boundaryStreets)
               })
             )
@@ -261,7 +261,6 @@ class TripControls extends React.Component {
           } 
        }
 
-      //console.log(filtered)
       this.props.loadingSwitch()
       this.props.busList(filtered,routeNames)
     }

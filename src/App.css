@@ -97,7 +97,7 @@ h1 {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   z-index: 9999999;
-  position: absoulute;
+  position: absolute;
 }
 
 .display {
