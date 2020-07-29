@@ -16,8 +16,8 @@ https://onetouchbus.herokuapp.com/
 
 ## Screenshots
 
+<img src="https://github.com/chrismojekwu/Portfolio/blob/master/img/OTBDesk.png" width="500">
 <img src="https://github.com/chrismojekwu/Portfolio/blob/master/img/OTBMobile.png" height="500" >
-<img src="https://github.com/chrismojekwu/Portfolio/blob/master/img/OTBDesk.png" width="200">
 
 ## Technology
 
