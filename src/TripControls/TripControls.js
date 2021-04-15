@@ -27,7 +27,7 @@ class TripControls extends React.Component {
 
     /** cant afford to pay for geocoding service :( **/ 
     reverseGeocode = () => {
-      
+
      const boundary = this.props.boundary;
      const outerBoundary = this.props.outerBoundary;
      const userLat = this.props.userLat;
@@ -196,6 +196,7 @@ class TripControls extends React.Component {
     }  
     
     filterStreets = (boundaryStreets) => {
+
       const street = boundaryStreets.map(street => {
          
         if (!street || street === undefined){
@@ -224,7 +225,7 @@ class TripControls extends React.Component {
 
 
       const key = process.env.REACT_APP_API_KEY
-      const url = `https://cors-anywhere.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getvehicles?key=${key}&rt=${routeList}&format=json`
+      const url = `https://safe-citadel-66220.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getvehicles?key=${key}&rt=${routeList}&format=json`
       
       
       fetch(url)
@@ -237,6 +238,8 @@ class TripControls extends React.Component {
     }
 
     getBusWithinBoundary = (response,routeNames) => {
+      
+
       const boundary = this.props.outerBoundary;
       const filtered = []
       const pad = .0004
@@ -266,8 +269,10 @@ class TripControls extends React.Component {
     }
     
     componentDidMount(){
+
+
       const key = process.env.REACT_APP_API_KEY
-      const url = `https://cors-anywhere.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getroutes?key=${key}&format=json`
+      const url = `https://safe-citadel-66220.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getroutes?key=${key}&format=json`
 
       fetch(url)
       .then(response => {
