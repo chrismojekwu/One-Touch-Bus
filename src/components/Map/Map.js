@@ -2,13 +2,13 @@ import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import busMarker from "../Marker/Marker";
 
-class MapDisplay extends React.Component {
-  render() {
-    const position = [this.props.lat, this.props.lng];
+function MapDisplay(props) {
+  
+    const position = [props.lat, props.lng];
 
-    const busses = this.props.busList.map((bus, index) => {
+    const busses = props.busList.map((bus, index) => {
       let route = "";
-      const busNameList = this.props.busNameList;
+      const busNameList = props.busNameList;
       for (let i = 0; i < busNameList.length; i++) {
         if (busNameList[i].rtNum === bus.rt) {
           route = busNameList[i].route;
@@ -27,7 +27,7 @@ class MapDisplay extends React.Component {
       <div className="map">
         <Map
           center={position}
-          zoom={this.props.zoom}
+          zoom={props.zoom}
           style={{ width: "100%", height: "500px", borderRadius: "10px" }}
         >
           <TileLayer
@@ -40,8 +40,7 @@ class MapDisplay extends React.Component {
           {busses}
         </Map>
       </div>
-    );
-  }
+    );  
 }
 
 export default MapDisplay;

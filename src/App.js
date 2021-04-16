@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './Header/Header'
-import MapDisplay from './Map/Map'
-import TripControls from './TripControls/TripControls'
-import RouteDisplay from './RouteDisplay/RouteDisplay'
-import Legend from './Legend/Legend'
+import Header from './components/Header/Header'
+import MapDisplay from './components/Map/Map'
+import TripControls from './components/TripControls/TripControls'
+import RouteDisplay from './components/RouteDisplay/RouteDisplay'
+import Legend from './components/Legend/Legend'
 import './App.css';
 
 
