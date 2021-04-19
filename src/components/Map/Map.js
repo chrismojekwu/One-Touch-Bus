@@ -6,7 +6,7 @@ function MapDisplay(props) {
   
     const position = [props.lat, props.lng];
 
-    const busses = props.busList.map((bus, index) => {
+    const busses = props.busList?.map((bus, index) => {
       let route = "";
       const busNameList = props.busNameList;
       for (let i = 0; i < busNameList.length; i++) {
