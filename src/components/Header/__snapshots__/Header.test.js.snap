@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders snapshot correctly 1`] = `
+<img
+  alt="One Touch Bus"
+  className="logo"
+  src="OTB.png"
+/>
+`;

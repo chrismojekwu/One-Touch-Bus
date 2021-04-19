@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders snapshot correcrtly 1`] = `
+<section
+  className="legend"
+>
+  <img
+    alt="Icon for the users positon."
+    className="legend-icon"
+    src="marker-icon.png"
+  />
+  Your Current Position
+  <img
+    alt="Icon for any nearby buses."
+    className="legend-icon"
+    src="bus-icon.png"
+  />
+  Bus (Click for Route Name and Destination)
+</section>
+`;

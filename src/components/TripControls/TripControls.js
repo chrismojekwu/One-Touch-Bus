@@ -1,37 +1,50 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 require('dotenv').config()
 
 
 
-class TripControls extends React.Component {
-  state = {
-    routes: [],
-  }
-    navigatorGeo(){
-        this.props.loadingSwitch() 
-        this.props.findBusButton()
-        window.navigator.geolocation.getCurrentPosition(this.relayCoords)
-     }
+function TripControls(props){
+  const [routes, setRoutes] = useState({});
 
-    relayCoords = (geoLocationPos) => {
-        const userCoords = geoLocationPos.coords;
-        const latt = userCoords.latitude
-        const long = userCoords.longitude
-        this.props.setLat(latt)
-        this.props.setLong(long)
-        this.props.createBoundary(latt,long)
-        
-        this.reverseGeocode()
-    
-      };
+  useEffect(() => {
+    const key = process.env.REACT_APP_API_KEY
+    const url = `https://safe-citadel-66220.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getroutes?key=${key}&format=json`
+
+    fetch(url)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setRoutes({routes: data['bustime-response'].routes})
+    })
+
+  });
+  
+  const navigatorGeo = () => {
+      props.loadingSwitch() 
+      props.findBusButton()
+      window.navigator.geolocation.getCurrentPosition(relayCoords)
+  }
+  
+  const relayCoords = (geoLocationPos) => {
+      const userCoords = geoLocationPos.coords;
+      const latt = userCoords.latitude
+      const long = userCoords.longitude
+      props.setLat(latt)
+      props.setLong(long)
+      props.createBoundary(latt,long)
+      
+      reverseGeocode()
+  
+  };
 
     /** cant afford to pay for geocoding service :( **/ 
-    reverseGeocode = () => {
+  const reverseGeocode = () => {
 
-     const boundary = this.props.boundary;
-     const outerBoundary = this.props.outerBoundary;
-     const userLat = this.props.userLat;
-     const userLong  = this.props.userLong;
+     const boundary = props.boundary;
+     const outerBoundary = props.outerBoundary;
+     const userLat = props.userLat;
+     const userLong  = props.userLong;
 
      const key = process.env.REACT_APP_GEOCODE_KEY
      
@@ -187,15 +200,14 @@ class TripControls extends React.Component {
                 return res.json()})
               .then(data => {
                 boundaryStreets.push(data.address)
-                this.filterStreets(boundaryStreets)
+                filterStreets(boundaryStreets)
               })
             )
           }, 7000)
          })         
-     
-    }  
+  };  
     
-    filterStreets = (boundaryStreets) => {
+  const filterStreets = (boundaryStreets) => {
 
       const street = boundaryStreets.map(street => {
          
@@ -208,16 +220,16 @@ class TripControls extends React.Component {
            return "No-Road"
            } 
       });
-      const bus = this.state.routes.map((routes) => {
+      const bus = routes.map((routes) => {
         return {route: routes.rtnm, rtNum: routes.rt} 
       });
       let results = bus.filter((el) => {
         return street.indexOf(el.route) >= 0
       });
-       this.getClosestBus(results)
-    }
+       getClosestBus(results)
+  };
 
-    getClosestBus = (results) => {
+  const getClosestBus = (results) => {
 
       const routeList = results.map((busRoutes) => {
         return busRoutes.rtNum
@@ -233,21 +245,21 @@ class TripControls extends React.Component {
         return res.json()
       })
       .then(data => {
-        this.getBusWithinBoundary(data['bustime-response'].vehicle, results)
+        getBusWithinBoundary(data['bustime-response'].vehicle, results)
        })
-    }
+  };
 
-    getBusWithinBoundary = (response,routeNames) => {
+  const getBusWithinBoundary = (response,routeNames) => {
       
 
-      const boundary = this.props.outerBoundary;
+      const boundary = props.outerBoundary;
       const filtered = []
       const pad = .0004
 
       
       if(response === undefined){
         filtered.push("No Buses")
-        this.props.loadingSwitch()
+        props.loadingSwitch()
         return false;
       }
 
@@ -264,43 +276,23 @@ class TripControls extends React.Component {
           } 
        }
 
-      this.props.loadingSwitch()
-      this.props.busList(filtered,routeNames)
-    }
+      props.loadingSwitch()
+      props.busList(filtered,routeNames)
+  };
     
-    componentDidMount(){
-
-
-      const key = process.env.REACT_APP_API_KEY
-      const url = `https://safe-citadel-66220.herokuapp.com/http://ctabustracker.com/bustime/api/v2/getroutes?key=${key}&format=json`
-
-      fetch(url)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        this.setState({
-          routes: data['bustime-response'].routes
-        })
-      })
-    }  
-
-      
-
-    render(){
-        return (
-            <section className="tripControls">
-              <input 
-               onClick={()=> this.navigatorGeo()}
-               id="bus-button" type="button" value="FIND MY BUS"/>
-               <div className="tooltip">
-                 <b>HELP</b>
-                  <span className="tooltiptext">Please click Find My Bus to list bustimes, route and destination can also be viewed by clicking on the bus icons on the map.</span>
-               </div>
-
-            </section>
-        )
-    }
+    
+  return (
+      <section className="tripControls">
+        <input 
+         onClick={()=> navigatorGeo()}
+         id="bus-button" type="button" value="FIND MY BUS"/>
+         <div className="tooltip">
+           <b>HELP</b>
+            <span className="tooltiptext">Please click Find My Bus to list bustimes, route and destination can also be viewed by clicking on the bus icons on the map.</span>
+         </div>
+      </section>
+  )
+    
 }
 
 export default TripControls
