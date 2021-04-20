@@ -4,7 +4,9 @@ require('dotenv').config()
 
 
 function TripControls(props){
-  const [routes, setRoutes] = useState({});
+  const [routes, setRoutes] = useState();
+  const [boundary, setBoundary] = useState();
+  const [outerBoundary, setOuterBoundary] = useState();
 
   useEffect(() => {
     const key = process.env.REACT_APP_API_KEY
@@ -15,10 +17,10 @@ function TripControls(props){
       return response.json()
     })
     .then(data => {
-      setRoutes({routes: data['bustime-response'].routes})
+      setRoutes(data['bustime-response'].routes)
     })
 
-  });
+  }, []);
   
   const navigatorGeo = () => {
       props.loadingSwitch() 
@@ -28,24 +30,46 @@ function TripControls(props){
   
   const relayCoords = (geoLocationPos) => {
       const userCoords = geoLocationPos.coords;
-      const latt = userCoords.latitude
-      const long = userCoords.longitude
+      const latt = userCoords.latitude;
+      const long = userCoords.longitude;
+      const block = .001500 
+      const threeBlocks = .004300
+
+      const boundary = [
+        {dir: "NE", lat: latt + block , long: long + block},
+        {dir: "SE" , lat: latt - block, long: long + block},
+        {dir: "SW" , lat: latt - block , long: long - block},
+        {dir: "NW" , lat: latt + block, long: long - block}
+        ];
+    
+        const outerBoundary = [
+        {dir: "NE", lat: latt + threeBlocks , long: long + threeBlocks },
+        {dir: "SE" , lat: latt - threeBlocks , long: long + threeBlocks },
+        {dir: "SW" , lat: latt - threeBlocks  , long: long - threeBlocks },
+        {dir: "NW" , lat: latt + threeBlocks , long: long - threeBlocks },
+        {dir: "N" , lat: latt + threeBlocks , long: long},
+        {dir: "E" , lat: latt , long: long + threeBlocks },
+        {dir: "S" , lat: latt - threeBlocks , long: long },
+        {dir: "W" , lat: latt , long: long - threeBlocks },
+        ];
+    
+      setBoundary(boundary);
+      setOuterBoundary(outerBoundary);  
       props.setLat(latt)
       props.setLong(long)
-      props.createBoundary(latt,long)
+      //props.createBoundary(latt,long)
       
-      reverseGeocode()
-  
+      reverseGeocode(boundary, outerBoundary)
+      
   };
 
     /** cant afford to pay for geocoding service :( **/ 
-  const reverseGeocode = () => {
+  const reverseGeocode = (boundary, outerBoundary) => {
 
-     const boundary = props.boundary;
-     const outerBoundary = props.outerBoundary;
+  
      const userLat = props.userLat;
      const userLong  = props.userLong;
-
+    
      const key = process.env.REACT_APP_GEOCODE_KEY
      
      const user = `https://us1.locationiq.com/v1/reverse.php?key=${key}&lat=${userLat}&lon=${userLong}&format=json`
@@ -200,14 +224,15 @@ function TripControls(props){
                 return res.json()})
               .then(data => {
                 boundaryStreets.push(data.address)
-                filterStreets(boundaryStreets)
+                filterStreets(boundaryStreets, outerBoundary)
               })
             )
           }, 7000)
-         })         
+         })
+
   };  
     
-  const filterStreets = (boundaryStreets) => {
+  const filterStreets = (boundaryStreets, outerBoundary) => {
 
       const street = boundaryStreets.map(street => {
          
@@ -226,10 +251,10 @@ function TripControls(props){
       let results = bus.filter((el) => {
         return street.indexOf(el.route) >= 0
       });
-       getClosestBus(results)
+       getClosestBus(results, outerBoundary)
   };
 
-  const getClosestBus = (results) => {
+  const getClosestBus = (results, outerBoundary) => {
 
       const routeList = results.map((busRoutes) => {
         return busRoutes.rtNum
@@ -245,15 +270,14 @@ function TripControls(props){
         return res.json()
       })
       .then(data => {
-        getBusWithinBoundary(data['bustime-response'].vehicle, results)
+        getBusWithinBoundary(data['bustime-response'].vehicle, results, outerBoundary)
        })
   };
 
-  const getBusWithinBoundary = (response,routeNames) => {
-      
+  const getBusWithinBoundary = (response, routeNames, outerBoundary) => {
 
-      const boundary = props.outerBoundary;
-      const filtered = []
+      const boundary = outerBoundary;
+      const filtered = [];
       const pad = .0004
 
       

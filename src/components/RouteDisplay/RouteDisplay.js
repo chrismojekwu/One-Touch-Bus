@@ -36,7 +36,7 @@ function RouteDisplay(props) {
   return (
       <section className="display" data-testid="bus-display"> 
         <h2>Nearby Buses:</h2>
-        {props.bool === false ? "" : loadingMessage()}
+        {props.bool === false || busses.length > 0 ? "" : loadingMessage()}
         {props.buttonTouched === true 
         && busses.length < 1 
         && props.bool === false ? emptyBusses():busses}
