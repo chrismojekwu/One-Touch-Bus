@@ -8,7 +8,7 @@ it('renders the header image without crashing', () => {
     expect(screen.getAllByRole('img').length).toBe(1);
 })
 
-it('renders snapshot correctly', () => {
+it('renders the snapshot correctly', () => {
     const tree = 
     renderer.create(<Header/>).toJSON();
     expect(tree).toMatchSnapshot();
