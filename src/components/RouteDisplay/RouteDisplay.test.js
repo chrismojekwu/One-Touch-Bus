@@ -3,7 +3,7 @@ import { getByTestId, render, screen } from "@testing-library/react";
 import RouteDisplay from './RouteDisplay';
 
 it('renders the legend component and marker imgs without crashing', () => {
-    render(<RouteDisplay/>);
+    render(<RouteDisplay busList={[]}/>);
     const busSection = screen.getByTestId('bus-display');
     expect(busSection).toBeInTheDocument();
 })

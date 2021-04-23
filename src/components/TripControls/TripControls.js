@@ -310,9 +310,11 @@ function TripControls(props){
         <input 
          onClick={()=> navigatorGeo()}
          id="bus-button" type="button" value="FIND MY BUS"/>
-         <div className="tooltip">
+         <div className="tooltip" data-testid="tooltip-els">
            <b>HELP</b>
-            <span className="tooltiptext">Please click Find My Bus to list bustimes, route and destination can also be viewed by clicking on the bus icons on the map.</span>
+            <span className="tooltiptext" data-testid="tooltip-els">
+              Please click Find My Bus to list bustimes, route and destination can also be viewed by clicking on the bus icons on the map.
+            </span>
          </div>
       </section>
   )

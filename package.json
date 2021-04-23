@@ -10,7 +10,6 @@
     "leaflet": "^1.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-google-maps": "^9.4.5",
     "react-leaflet": "^2.6.3",
     "react-promise-tracker": "^2.1.0",
     "react-scripts": "3.4.1",
@@ -39,5 +38,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6"
   }
 }
